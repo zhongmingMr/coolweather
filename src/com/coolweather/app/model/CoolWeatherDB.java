@@ -41,7 +41,7 @@ public class CoolWeatherDB {
 			ContentValues values=new ContentValues();
 			values.put("province_name", province.getProvinceName());
 			values.put("province_code", province.getProvinceCode());
-			db.insert(DB_NAME, null, values);
+			db.insert("Province", null, values);
 		}
 	}
 	//从数据库里读取全国省份信息
@@ -56,7 +56,7 @@ public class CoolWeatherDB {
 						cursor.getString(cursor.getColumnIndex("province_name")));
 				province.setProvinceCode(cursor.getString(
 						cursor.getColumnIndex("province_code")));
-				
+				list.add(province);
 			} while (cursor.moveToNext());	
 		}
 		if(cursor!=null){
@@ -72,7 +72,7 @@ public class CoolWeatherDB {
 			values.put("city_name", city.getCityName());
 			values.put("city_code", city.getCityCode());
 			values.put("province_id", city.getProvinceId());
-			db.insert(DB_NAME, null, values);
+			db.insert("City", null, values);
 		}
 	}
 	//从数据库读取某省下所有城市的信息
@@ -87,6 +87,7 @@ public class CoolWeatherDB {
 				city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
 				city.setCityCode(cursor.getString(cursor.getColumnIndex("city_code")));
 				city.setProvinceId(provinceId);
+				list.add(city);
 			} while (cursor.moveToNext());
 		}
 		if(cursor!=null){
@@ -116,6 +117,7 @@ public class CoolWeatherDB {
 				county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
 				county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
 				county.setCityId(cityId);
+				list.add(county);
 			} while (cursor.moveToNext());
 			
 		}
